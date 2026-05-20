@@ -14,9 +14,9 @@
             count++;
 
             if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
+                CounterBtn.Text = $"Clickeaste {count} vez gil";
             else
-                CounterBtn.Text = $"Clicked {count} times";
+                CounterBtn.Text = $"Clickeaste {count} veces gil";
 
             SemanticScreenReader.Announce(CounterBtn.Text);
         }

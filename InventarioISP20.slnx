@@ -3,6 +3,7 @@
     <File Path=".github/copilot-instructions.md" />
   </Folder>
   <Project Path="AppMovil/AppMovil.csproj" Id="c772e154-1bee-48ee-8970-18359b19ddb9" />
+  <Project Path="Consola/Consola.csproj" Id="632e1a0d-8fdd-472a-af84-1bf3626a7b75" />
   <Project Path="Desktop/Desktop.csproj" />
   <Project Path="WebApp/WebApp.Client/WebApp.Client.csproj" Id="c3115c93-e875-412d-afcf-efa35192d26d" />
   <Project Path="WebApp/WebApp/WebApp.csproj" Id="70532e17-37f3-4474-ae73-9171f664f3a2" />
