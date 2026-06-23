@@ -35,8 +35,10 @@
             SubMenuCategorias = new FontAwesome.Sharp.IconMenuItem();
             SubMenuPrestamos = new FontAwesome.Sharp.IconMenuItem();
             SubMenuUbicaciones = new FontAwesome.Sharp.IconMenuItem();
+            SubMenuClientes = new FontAwesome.Sharp.IconMenuItem();
             iconMenuItem2 = new FontAwesome.Sharp.IconMenuItem();
             salirDelSistema = new FontAwesome.Sharp.IconMenuItem();
+            SubMenuPerfumes = new FontAwesome.Sharp.IconMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -68,7 +70,7 @@
             // 
             // iconMenuItem1
             // 
-            iconMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { SubMenuArticulos, SubMenuCategorias, SubMenuPrestamos, SubMenuUbicaciones });
+            iconMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { SubMenuArticulos, SubMenuCategorias, SubMenuPrestamos, SubMenuUbicaciones, SubMenuClientes, SubMenuPerfumes });
             iconMenuItem1.IconChar = FontAwesome.Sharp.IconChar.House;
             iconMenuItem1.IconColor = Color.Black;
             iconMenuItem1.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -82,7 +84,7 @@
             SubMenuArticulos.IconColor = Color.Black;
             SubMenuArticulos.IconFont = FontAwesome.Sharp.IconFont.Auto;
             SubMenuArticulos.Name = "SubMenuArticulos";
-            SubMenuArticulos.Size = new Size(208, 34);
+            SubMenuArticulos.Size = new Size(270, 34);
             SubMenuArticulos.Text = "Articulos";
             SubMenuArticulos.Click += SubMenuArticulos_Click;
             // 
@@ -92,7 +94,7 @@
             SubMenuCategorias.IconColor = Color.Black;
             SubMenuCategorias.IconFont = FontAwesome.Sharp.IconFont.Auto;
             SubMenuCategorias.Name = "SubMenuCategorias";
-            SubMenuCategorias.Size = new Size(208, 34);
+            SubMenuCategorias.Size = new Size(270, 34);
             SubMenuCategorias.Text = "Categorías";
             SubMenuCategorias.Click += SubMenuCategorias_Click;
             // 
@@ -102,7 +104,7 @@
             SubMenuPrestamos.IconColor = Color.Black;
             SubMenuPrestamos.IconFont = FontAwesome.Sharp.IconFont.Auto;
             SubMenuPrestamos.Name = "SubMenuPrestamos";
-            SubMenuPrestamos.Size = new Size(208, 34);
+            SubMenuPrestamos.Size = new Size(270, 34);
             SubMenuPrestamos.Text = "Prestamos";
             // 
             // SubMenuUbicaciones
@@ -111,8 +113,18 @@
             SubMenuUbicaciones.IconColor = Color.Black;
             SubMenuUbicaciones.IconFont = FontAwesome.Sharp.IconFont.Auto;
             SubMenuUbicaciones.Name = "SubMenuUbicaciones";
-            SubMenuUbicaciones.Size = new Size(208, 34);
+            SubMenuUbicaciones.Size = new Size(270, 34);
             SubMenuUbicaciones.Text = "Ubicaciones";
+            // 
+            // SubMenuClientes
+            // 
+            SubMenuClientes.IconChar = FontAwesome.Sharp.IconChar.PeoplePulling;
+            SubMenuClientes.IconColor = Color.Black;
+            SubMenuClientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            SubMenuClientes.Name = "SubMenuClientes";
+            SubMenuClientes.Size = new Size(270, 34);
+            SubMenuClientes.Text = "Clientes";
+            SubMenuClientes.Click += SubMenuClientes_Click;
             // 
             // iconMenuItem2
             // 
@@ -133,6 +145,16 @@
             salirDelSistema.Size = new Size(241, 34);
             salirDelSistema.Text = "Salir del sistema";
             salirDelSistema.Click += salirDelSistema_Click;
+            // 
+            // SubMenuPerfumes
+            // 
+            SubMenuPerfumes.IconChar = FontAwesome.Sharp.IconChar.None;
+            SubMenuPerfumes.IconColor = Color.Black;
+            SubMenuPerfumes.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            SubMenuPerfumes.Name = "SubMenuPerfumes";
+            SubMenuPerfumes.Size = new Size(270, 34);
+            SubMenuPerfumes.Text = "Perfumes";
+            SubMenuPerfumes.Click += SubMenuPerfumes_Click;
             // 
             // MenuPrincipalView
             // 
@@ -163,5 +185,7 @@
         private FontAwesome.Sharp.IconMenuItem SubMenuCategorias;
         private FontAwesome.Sharp.IconMenuItem SubMenuPrestamos;
         private FontAwesome.Sharp.IconMenuItem SubMenuUbicaciones;
+        private FontAwesome.Sharp.IconMenuItem SubMenuClientes;
+        private FontAwesome.Sharp.IconMenuItem SubMenuPerfumes;
     }
 }

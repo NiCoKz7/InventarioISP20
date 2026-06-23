@@ -8,20 +8,123 @@ public class Program
     static string[,] nosotros;
     private static void Main(string[] args)
     {
-        CreamosVariables();
+        //CreamosVariables();
 
-        CreamosMatricesYVectores();
+        //CreamosMatricesYVectores();
 
-        Console.WriteLine("probando escribir algo en la pantalla");
+        //Console.WriteLine("probando escribir algo en la pantalla");
 
-        ImpresionDeMatrices(meses, nosotros);
+        //ImpresionDeMatrices(meses, nosotros);
 
-        ImpresionDeParametros(args);
+        //ImpresionDeParametros(args);
 
         //CapturaDeValoresDelUsuario();
 
-        CreamosAlumnosEImprimimosSuFichaDeDatos();
+        //CreamosAlumnosEImprimimosSuFichaDeDatos();
 
+        //CreamosEstudiantesEImprimimosSuSaludo();
+
+        //ProbamosMetodosConDiferentesValoresDeRetorno();
+
+        //Ejercicio1();
+
+        //Ejercicio2();
+
+        Ejercicio3();
+
+    }
+
+    private static void Ejercicio3()
+    {
+        //object prueba2 = new object();
+        //prueba2.ToString();
+        Object prueba = new Object();
+        Persona[] grupo = new Persona[2];
+        Persona persona1 = new();
+        grupo[0] = persona1;
+        Estudiante estudiante1 = new();
+        estudiante1.Nombre = "bauti inso";
+        grupo[1] = estudiante1;
+        //estudiante1.ToString();
+        foreach (Persona persona in grupo)
+        {
+            persona.Hablar();
+        }
+        Console.WriteLine(Environment.NewLine+"probando:\n ");
+        prueba.ToString();
+        DateTime ahora = new DateTime();
+        ahora = DateTime.Now;
+        Console.WriteLine(prueba.ToString());
+        Console.WriteLine(estudiante1.ToString());
+        Console.WriteLine(ahora);
+        
+    }
+
+    private static void Ejercicio2()
+    {
+        Bicicleta bici = new();
+        bici.velocidad = 15;
+        bici.tienecampanilla = false;
+        //if (bici.tienecampanilla)
+        //{
+        //    Console.WriteLine($"la bici va a una velocidad de {bici.velocidad} km/h y tiene campanilla");
+        //}
+        //else
+        //{
+        //    Console.WriteLine($"la bici va a una velocidad de {bici.velocidad} km/h y no tiene campanilla");
+
+        //}
+        Console.WriteLine($"la bicicleta va a una velocidad de {bici.velocidad} y {(!bici.tienecampanilla?"no ":"")}tiene campanilla");
+    }
+
+    private static void Ejercicio1()
+    {
+        Persona persona1 = new();
+        persona1.Nombre = "Bauti G";
+        //persona1.Edad = 50;
+        Console.WriteLine($"El nombre es {persona1.Nombre}" /* y su edad es: {persona1.Edad}"*/);
+        persona1.cumpliranios();
+    }
+
+    private static void ProbamosMetodosConDiferentesValoresDeRetorno()
+    {
+        AlumnoCurso alumno1 = new AlumnoCurso("Negro", "Tecla", 29);
+
+        alumno1.AgregarNota(8);
+        alumno1.AgregarNota(7.5);
+        alumno1.AgregarNota(9);
+        alumno1.AgregarNota(5.5);
+        alumno1.AgregarNota(3);
+        alumno1.AgregarNota(2);
+
+        string nombreCompleto = alumno1.ObtenerNombreCompleto();
+        int cantidadNotas = alumno1.ObtenerCantidadDeNotas();
+        double promedio = alumno1.CalcularPromedio();
+        bool aprobado = alumno1.EstaAprobado();
+        char inicial = alumno1.ObtenerInicial();
+        DateTime fechaConsulta = alumno1.ObtenerFechaConsulta();
+        List<double> notas = alumno1.ObtenerNotas();
+        int cantidadmateriasdesaprobadas = alumno1.CantMateriasDesaprobadas();
+        bool pasadeaño = alumno1.PasoDeAño(cantidadmateriasdesaprobadas);
+
+        Console.WriteLine("Nombre completo: " + nombreCompleto);
+        Console.WriteLine("Cantidad de notas: " + cantidadNotas);
+        Console.WriteLine("Promedio: " + promedio);
+        Console.WriteLine("¿Está aprobado?: " + aprobado);
+        Console.WriteLine("Inicial: " + inicial);
+        Console.WriteLine("Fecha de consulta: " + fechaConsulta);
+        Console.WriteLine("Materias desaprobadas: " + cantidadmateriasdesaprobadas);
+        Console.WriteLine("Paso de año: " + pasadeaño);
+    }
+
+    private static void CreamosEstudiantesEImprimimosSuSaludo()
+    {
+        Estudiante estudiante1 = new Estudiante();
+        estudiante1.Nombre = "Nico";
+        estudiante1.Edad = 24;
+        estudiante1.Domicilio = "Calle falopa rica 123";
+        //estudiante1.Saludar();
+        Console.WriteLine(estudiante1.DatosCompletos);
     }
 
     private static void CreamosAlumnosEImprimimosSuFichaDeDatos()

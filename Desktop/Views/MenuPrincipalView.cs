@@ -29,8 +29,20 @@ namespace Desktop.Views
         private void SubMenuCategorias_Click(object sender, EventArgs e)
         {
             CategoriasView categoriasView = new();
-            categoriasView.ShowDialog(); 
+            categoriasView.ShowDialog();
             //no puedo volver a abrir la ventana de categoriasView porque ShowDialog() bloquea la ventana principal hasta que se cierre la ventana de categoriasView. Si quiero poder abrir la ventana de categoriasView varias veces, debo usar Show() en lugar de ShowDialog().
+        }
+
+        private void SubMenuClientes_Click(object sender, EventArgs e)
+        {
+            ClientesView clientesView = new();
+            clientesView.ShowDialog();
+        }
+
+        private void SubMenuPerfumes_Click(object sender, EventArgs e)
+        {
+            PerfumesView perfumesView = new(); 
+            perfumesView.ShowDialog();
         }
     }
 }

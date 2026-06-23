@@ -14,8 +14,9 @@ namespace Consola.Class
         int dni;
         DateOnly fecha_nacimiento;
 
-        //constructor de la clase alumno que recibe los datos del alumno y los asigna a las variables de instancia
-        public Alumno(string nombre, string apellido, int dni, DateOnly fecha_nacimiento)
+        //constructor 1 de la clase alumno que recibe los datos del alumno y los asigna a las variables de instancia
+        public Alumno(){}
+        public Alumno(string nombre, string apellido, int dni=0, DateOnly fecha_nacimiento = new DateOnly())
         {
             this.nombre = nombre;
             this.apellido = apellido;
@@ -27,6 +28,11 @@ namespace Consola.Class
         public string ImpresionFichaDatos()
         {
             return $"Nombre: {nombre} Apellido: {apellido}\n DNI: {dni}\n Fecha de nacimiento: {fecha_nacimiento}";
+        }
+
+        public override string ToString()
+        {
+            return nombre + " " + apellido;
         }
 
     }
