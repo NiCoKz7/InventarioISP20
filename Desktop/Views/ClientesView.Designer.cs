@@ -48,6 +48,7 @@
             label4 = new Label();
             label3 = new Label();
             txtApellido = new TextBox();
+            btnEliminar = new FontAwesome.Sharp.IconButton();
             tabControl1.SuspendLayout();
             tabPageLista.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewClientes).BeginInit();
@@ -76,6 +77,7 @@
             // 
             // tabPageLista
             // 
+            tabPageLista.Controls.Add(btnEliminar);
             tabPageLista.Controls.Add(btnModificar);
             tabPageLista.Controls.Add(btnNuevo);
             tabPageLista.Controls.Add(btnBuscar);
@@ -135,6 +137,7 @@
             txtBusqueda.Name = "txtBusqueda";
             txtBusqueda.Size = new Size(421, 31);
             txtBusqueda.TabIndex = 2;
+            txtBusqueda.KeyPress += txtBusqueda_KeyPress;
             // 
             // label2
             // 
@@ -267,6 +270,19 @@
             txtApellido.Size = new Size(325, 31);
             txtApellido.TabIndex = 1;
             // 
+            // btnEliminar
+            // 
+            btnEliminar.IconChar = FontAwesome.Sharp.IconChar.None;
+            btnEliminar.IconColor = Color.Black;
+            btnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnEliminar.Location = new Point(600, 163);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(112, 34);
+            btnEliminar.TabIndex = 6;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.UseVisualStyleBackColor = true;
+            btnEliminar.Click += btnEliminar_Click;
+            // 
             // ClientesView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -312,5 +328,6 @@
         private TextBox txtDni;
         private FontAwesome.Sharp.IconButton btnNuevo;
         private FontAwesome.Sharp.IconButton btnModificar;
+        private FontAwesome.Sharp.IconButton btnEliminar;
     }
 }

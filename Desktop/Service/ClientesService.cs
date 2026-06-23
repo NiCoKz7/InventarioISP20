@@ -15,20 +15,12 @@ namespace Desktop.Service
     {
         HttpClient httpClient;
         string urlApi = "https://cwzwfagtggojwrefbivd.supabase.co/rest/v1/clientes";
+        JsonSerializerOptions options;
 
         public ClientesService()
         {
-            //using DotNetEnv; si no esta el using se debe poner el lo siguiente:
-            //DotNetEnv.Env.Load();
-            Env.Load("../../../"); //cargando las variables de entorno del archivo .env
-            var apikey = Environment.GetEnvironmentVariable("apikey_supabase");
-
-            //instanciando el http client y lo configuramos para poder utilizarlo en cada uno de los metodos
-            httpClient = new HttpClient(); 
-            httpClient.BaseAddress = new Uri(urlApi); //configurando la url con la que trabaja
-            //agregando la apikey de la url 
-            httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
-            httpClient.DefaultRequestHeaders.Add("apikey", apikey);
+            httpClient = SettingHttpClient();
+            options = SettingJsonSerializer();
         }
 
         public async Task<List<Cliente>?> GetAllAsync()//obteniendo clientes
@@ -83,11 +75,7 @@ namespace Desktop.Service
         {
             try
             {
-                var options = new JsonSerializerOptions
-                {
-                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-                    PropertyNameCaseInsensitive = true,
-                };
+                SettingJsonSerializer();
                 var json = JsonSerializer.Serialize(cliente, options);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await httpClient.PostAsync("", content);
@@ -114,11 +102,7 @@ namespace Desktop.Service
             try
             {
                 //configuramos la serializacion del cliente para que ignore las propiedades nulas y no tenga en cuenta mayusculas o minusculas en los nombres de las propiedades
-                var options = new JsonSerializerOptions
-                {
-                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-                    PropertyNameCaseInsensitive = true,
-                };
+                SettingJsonSerializer();
                 var json = JsonSerializer.Serialize(cliente, options);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 string urlSupabase = $"?id=eq.{cliente.id}"; //filtro para actualizar solo el cliente con el id que se pasa por el parametro cliente
@@ -139,6 +123,54 @@ namespace Desktop.Service
                 return false;
             }
 
+        }
+
+        public async Task<bool> DeleteClienteAsync(int id) //eliminando un cliente
+        {
+            try
+            {
+                string urlSupabase = $"?id=eq.{id}"; //filtro para eliminar solo el cliente con el id que se pasa por el parametro id
+                var response = await httpClient.DeleteAsync(urlSupabase);
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Error al eliminar el cliente: " + response.ReasonPhrase);
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar el cliente desde la Api: " + ex.Message);
+                return false;
+            }
+        }
+
+        private HttpClient? SettingHttpClient()
+        {
+            //using DotNetEnv; si no esta el using se debe poner el lo siguiente:
+            //DotNetEnv.Env.Load();
+            Env.Load("../../../"); //cargando las variables de entorno del archivo .env
+            var apikey = Environment.GetEnvironmentVariable("apikey_supabase");
+
+            //instanciando el http client y lo configuramos para poder utilizarlo en cada uno de los metodos
+            var httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(urlApi); //configurando la url con la que trabaja
+            //agregando la apikey de la url 
+            httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+            httpClient.DefaultRequestHeaders.Add("apikey", apikey);
+            return httpClient;
+        }
+
+        private JsonSerializerOptions SettingJsonSerializer()
+        {
+            return new JsonSerializerOptions
+            {
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                PropertyNameCaseInsensitive = true,
+            };
         }
     }
 }
