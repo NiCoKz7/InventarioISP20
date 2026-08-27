@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Input;
 using Desktop.Models;
 using Desktop.Service;
 
@@ -20,11 +21,22 @@ namespace Desktop.Views
         {
             InitializeComponent();
             LoadPerfumes();
+            SettingTabsTextBox();
+        }
+
+        private void SettingTabsTextBox()
+        {
+            //cuando presionamos enter disparamos metodo sendtab para que se comporte como tabulador pasando por parametro el KeyPressEventArgs 
+            txtGenero.KeyPress += (sender, e) => SendTab(e);
+            txtEnvase.KeyPress += (sender, e) => SendTab(e);
+            txtPrecio.KeyPress += (sender, e) => SendTab(e);
+            txtTipo.KeyPress += (sender, e) => SendTab(e);
+            txtTamaño.KeyPress += (sender, e) => SendTab(e);
         }
 
         private async void LoadPerfumes()
         {
-            var perfumes = perfumeService.GetAllAsync();
+            var perfumes = await perfumeService.GetAllAsync();
             if (perfumes != null)
             {
                 dataGridViewPerfumes.DataSource = perfumes;
@@ -33,6 +45,7 @@ namespace Desktop.Views
 
         private async void btnBuscar_Click(object sender, EventArgs e)
         {
+            //buscando perfumes con filtro y mostrando el datagridview cuando se presiona el boton buscar o cuando se presiona enter en el textbox de busqueda
             var perfumes = await perfumeService.GetAllWithFiltersAsync(txtBusqueda.Text);
             if (perfumes != null)
             {
@@ -120,21 +133,22 @@ namespace Desktop.Views
             perfumeModificado = null;
         }
 
-        private void btnEliminar_Click(object sender, EventArgs e)
+        private async void btnEliminar_Click(object sender, EventArgs e)
         {
             //eliminando un perfume
             if (dataGridViewPerfumes.CurrentRow != null)
             {
-                perfumeModificado = (Perfume)dataGridViewPerfumes.CurrentRow.DataBoundItem;
-                var result = MessageBox.Show($"¿Está seguro de eliminar el perfume {perfumeModificado.nombre}?", "Confirmar eliminación", MessageBoxButtons.YesNo);
+                var perfumeAEliminar = (Perfume)dataGridViewPerfumes.CurrentRow.DataBoundItem;
+                var result = MessageBox.Show($"¿Está seguro de eliminar el perfume {perfumeModificado.nombre}?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    bool perfumeEliminado = perfumeService.DeletePerfumeAsync((int)perfumeModificado.id).Result;
+                    var perfumeEliminado = await perfumeService.DeletePerfumeAsync((int)perfumeAEliminar.id!);
                     if (perfumeEliminado)
                     {
-                        MessageBox.Show("Perfume eliminado correctamente.");
+                        MessageBox.Show($"Perfume {perfumeAEliminar.marca} - {perfumeAEliminar.nombre} eliminado correctamente.");
                         LoadPerfumes();
-                        perfumeModificado = null;
+                        ClearForm();
+                        tabControl1.SelectedTab = tabPageLista;
                     }
                     else
                     {
@@ -145,6 +159,43 @@ namespace Desktop.Views
             else
             {
                 MessageBox.Show("Seleccione un perfume para eliminar.");
+            }
+        }
+
+        private void txtBusqueda_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtBusqueda.Text))
+
+                btnBuscar.PerformClick();
+
+        }
+
+        private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //cuando presionamos enter disparamos la tecla tab 
+            SendTab(e);
+        }
+
+        private void SendTab(KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                SendKeys.Send("{TAB}");
+            }
+        }
+
+        private void txtMarca_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            SendTab(e);
+        }
+
+        private void txtBusqueda_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                btnBuscar.PerformClick();
+                e.Handled = true;
             }
         }
     }

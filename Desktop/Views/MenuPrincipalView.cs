@@ -41,8 +41,26 @@ namespace Desktop.Views
 
         private void SubMenuPerfumes_Click(object sender, EventArgs e)
         {
-            PerfumesView perfumesView = new(); 
+            PerfumesView perfumesView = new();
             perfumesView.ShowDialog();
+        }
+
+        private void subMenuClientesSupabase_Click(object sender, EventArgs e)
+        {
+            ClientesSupabaseView clientesSupabaseView = new();
+            clientesSupabaseView.ShowDialog();
+        }
+
+        private void subMenuGemini_Click(object sender, EventArgs e)
+        {
+            ProbandoIA_Gemini probandoIA_Gemini = new();
+            probandoIA_Gemini.ShowDialog();
+        }
+
+        private void subMenuOpenRouter_Click(object sender, EventArgs e)
+        {
+            OpenrouterView openRouter = new();
+            openRouter.ShowDialog();
         }
     }
 }

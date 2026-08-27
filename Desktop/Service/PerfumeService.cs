@@ -14,16 +14,12 @@ namespace Desktop.Service
     public class PerfumeService
     {
         HttpClient httpClient;
-        string urlApi = "https://cwzwfagtggojwrefbivd.supabase.co/rest/v1/Perfumes";
+        JsonSerializerOptions options;
 
         public PerfumeService()
         {
-            Env.Load("../../../"); //cargando las variables de entorno del archivo .env
-            var apikey = Environment.GetEnvironmentVariable("apikey_supabase");
-            httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(urlApi);
-            httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
-            httpClient.DefaultRequestHeaders.Add("apikey", apikey);
+            httpClient = SettingHttpClient();
+            options = SettingJsonSerializer();
         }
 
         public async Task<List<Perfume>?> GetAllAsync() //obteniendo todos los perfumes
@@ -34,7 +30,7 @@ namespace Desktop.Service
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
-                    var perfumes = System.Text.Json.JsonSerializer.Deserialize<List<Perfume>>(json);
+                    var perfumes = JsonSerializer.Deserialize<List<Perfume>>(json);
                     return perfumes;
                 }
                 else
@@ -79,12 +75,7 @@ namespace Desktop.Service
         {
             try
             {
-                var options = new JsonSerializerOptions
-                {
-                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-                    PropertyNameCaseInsensitive = true,
-                };
-
+                SettingJsonSerializer();
                 var json = JsonSerializer.Serialize(perfume, options);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await httpClient.PostAsync("", content);
@@ -109,9 +100,11 @@ namespace Desktop.Service
         {
             try
             {
-                var json = JsonSerializer.Serialize(perfume);
+                SettingJsonSerializer();
+                var json = JsonSerializer.Serialize(perfume,options);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await httpClient.PutAsync($"?id=eq.{perfume.id}", content);
+                string urlSupabase = $"?id=eq.{perfume.id}";
+                var response = await httpClient.PutAsync(urlSupabase, content);
                 if (response.IsSuccessStatusCode)
                 {
                     return true;
@@ -133,7 +126,8 @@ namespace Desktop.Service
         {
             try
             {
-                var response = await httpClient.DeleteAsync($"?id=eq.{id}");
+                string urlSupabase = $"?id=eq.{id}";
+                var response = await httpClient.DeleteAsync(urlSupabase);
                 if (response.IsSuccessStatusCode)
                 {
                     return true;
@@ -149,6 +143,29 @@ namespace Desktop.Service
                 MessageBox.Show("Error al eliminar el perfume desde la api: " + ex.Message);
                 return false;
             }
+        }
+
+        private JsonSerializerOptions SettingJsonSerializer()
+        {
+            return new JsonSerializerOptions
+            {
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                PropertyNameCaseInsensitive = true,
+            };
+        }
+
+        private HttpClient? SettingHttpClient()
+        {
+            Env.Load("../../../"); //cargando las variables de entorno del archivo .env
+            //cargamos la apikey de supabase desde el archivo .env para no exponerla en el codigo
+            var apikey = Environment.GetEnvironmentVariable("SUPABASE_KEY");
+            //la url de la api la obtenemos del archivo .env para no exponerla en el codigo
+            string urlApi = Environment.GetEnvironmentVariable("SUPABASE_URL") + "/rest/v1/Perfumes";
+            httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(urlApi);
+            httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+            httpClient.DefaultRequestHeaders.Add("apikey", apikey);
+            return httpClient;
         }
     }
 }

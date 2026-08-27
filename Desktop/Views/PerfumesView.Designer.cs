@@ -37,6 +37,7 @@
             label2 = new Label();
             dataGridViewPerfumes = new DataGridView();
             tabPageAddEdit = new TabPage();
+            btnEliminar = new FontAwesome.Sharp.IconButton();
             btnCancelar = new FontAwesome.Sharp.IconButton();
             btnGuardar = new FontAwesome.Sharp.IconButton();
             txtMarca = new TextBox();
@@ -54,7 +55,6 @@
             txtGenero = new TextBox();
             txtNombre = new TextBox();
             label1 = new Label();
-            btnEliminar = new FontAwesome.Sharp.IconButton();
             tabControl1.SuspendLayout();
             tabPageLista.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewPerfumes).BeginInit();
@@ -132,6 +132,8 @@
             txtBusqueda.Name = "txtBusqueda";
             txtBusqueda.Size = new Size(539, 31);
             txtBusqueda.TabIndex = 2;
+            txtBusqueda.TextChanged += txtBusqueda_TextChanged;
+            txtBusqueda.KeyPress += txtBusqueda_KeyPress;
             // 
             // label2
             // 
@@ -151,6 +153,7 @@
             dataGridViewPerfumes.Name = "dataGridViewPerfumes";
             dataGridViewPerfumes.ReadOnly = true;
             dataGridViewPerfumes.RowHeadersWidth = 62;
+            dataGridViewPerfumes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewPerfumes.Size = new Size(615, 252);
             dataGridViewPerfumes.TabIndex = 0;
             // 
@@ -181,6 +184,19 @@
             tabPageAddEdit.Text = "Agregar/Editar";
             tabPageAddEdit.UseVisualStyleBackColor = true;
             // 
+            // btnEliminar
+            // 
+            btnEliminar.IconChar = FontAwesome.Sharp.IconChar.None;
+            btnEliminar.IconColor = Color.Black;
+            btnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnEliminar.Location = new Point(609, 199);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(112, 34);
+            btnEliminar.TabIndex = 9;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.UseVisualStyleBackColor = true;
+            btnEliminar.Click += btnEliminar_Click;
+            // 
             // btnCancelar
             // 
             btnCancelar.IconChar = FontAwesome.Sharp.IconChar.None;
@@ -189,7 +205,7 @@
             btnCancelar.Location = new Point(609, 134);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(112, 34);
-            btnCancelar.TabIndex = 16;
+            btnCancelar.TabIndex = 8;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             btnCancelar.Click += btnCancelar_Click;
@@ -202,7 +218,7 @@
             btnGuardar.Location = new Point(609, 88);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(112, 34);
-            btnGuardar.TabIndex = 15;
+            btnGuardar.TabIndex = 7;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = true;
             btnGuardar.Click += btnGuardar_Click;
@@ -212,7 +228,8 @@
             txtMarca.Location = new Point(141, 91);
             txtMarca.Name = "txtMarca";
             txtMarca.Size = new Size(407, 31);
-            txtMarca.TabIndex = 14;
+            txtMarca.TabIndex = 1;
+            txtMarca.KeyPress += txtMarca_KeyPress;
             // 
             // label9
             // 
@@ -318,6 +335,7 @@
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(407, 31);
             txtNombre.TabIndex = 0;
+            txtNombre.KeyPress += txtNombre_KeyPress;
             // 
             // label1
             // 
@@ -328,19 +346,6 @@
             label1.Size = new Size(189, 48);
             label1.TabIndex = 1;
             label1.Text = "Perfumes";
-            // 
-            // btnEliminar
-            // 
-            btnEliminar.IconChar = FontAwesome.Sharp.IconChar.None;
-            btnEliminar.IconColor = Color.Black;
-            btnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnEliminar.Location = new Point(609, 199);
-            btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(112, 34);
-            btnEliminar.TabIndex = 17;
-            btnEliminar.Text = "Eliminar";
-            btnEliminar.UseVisualStyleBackColor = true;
-            btnEliminar.Click += btnEliminar_Click;
             // 
             // PerfumesView
             // 
