@@ -26,14 +26,20 @@ namespace Backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Localidad>>> GetLocalidades()
         {
-            return await _context.Localidades.ToListAsync();
+            return await _context.Localidades
+            .Include(l => l.Provincia)
+            .ThenInclude(p => p.Pais)
+            .ToListAsync();
         }
 
         // GET: api/Localidades/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Localidad>> GetLocalidad(int id)
         {
-            var localidad = await _context.Localidades.FindAsync(id);
+            var localidad = await _context.Localidades
+            .Include(l => l.Provincia)
+            .ThenInclude(p => p.Pais)
+            .FirstOrDefaultAsync(l => l.Id == id);
 
             if (localidad == null)
             {
@@ -41,6 +47,11 @@ namespace Backend.Controllers
             }
 
             return localidad;
+        }
+        [HttpGet ("Total")]
+        public async Task<ActionResult<int>> GetTotalLocalidades()
+        {
+            return await _context.Localidades.CountAsync(l => !l.IsDeleted);
         }
 
         // PUT: api/Localidades/5
@@ -94,8 +105,8 @@ namespace Backend.Controllers
             {
                 return NotFound();
             }
-
-            _context.Localidades.Remove(localidad);
+            localidad.IsDeleted = true;
+            _context.Entry(localidad).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return NoContent();
