@@ -60,7 +60,7 @@ jobs:
           az webapp config appsettings set \
             --resource-group api-inventario-nico_group \
             --name api-inventario-nico \
-            --settings "ConnectionStrings__postgresRemote=${{ secrets.POSTGREREMOTE }}"
+            --settings "ConnectionStrings__postgreRemote=${{ secrets.POSTGREREMOTE }}"
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
