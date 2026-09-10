@@ -25,7 +25,11 @@ namespace Backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Cliente>>> GetClientes()
         {
-            return await _context.Clientes.ToListAsync();
+            return await _context.Clientes
+            .Include(c => c.Localidad)
+            .ThenInclude(l => l.Provincia)
+            .ThenInclude(p => p.Pais)
+            .ToListAsync();
         }
 
         // GET: api/Clientes
@@ -40,7 +44,11 @@ namespace Backend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Cliente>> GetCliente(int id)
         {
-            var cliente = await _context.Clientes.FindAsync(id);
+            var cliente = await _context.Clientes
+            .Include(c => c.Localidad)
+            .ThenInclude(l => l.Provincia)
+            .ThenInclude(p => p.Pais)
+            .FirstOrDefaultAsync(c => c.Id == id);
 
             if (cliente == null)
             {

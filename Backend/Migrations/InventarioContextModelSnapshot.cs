@@ -68,34 +68,34 @@ namespace Backend.Migrations
                         {
                             Id = 1,
                             Address = "Calle Falsa 123",
-                            Created_at = new DateTimeOffset(new DateTime(2026, 9, 1, 18, 43, 32, 736, DateTimeKind.Unspecified).AddTicks(4986), new TimeSpan(0, -3, 0, 0, 0)),
+                            Created_at = new DateTimeOffset(new DateTime(2026, 9, 10, 12, 57, 14, 372, DateTimeKind.Unspecified).AddTicks(823), new TimeSpan(0, -3, 0, 0, 0)),
                             Dni = "12345678",
                             Firstname = "Juan",
                             IsDeleted = false,
                             Lastname = "Perez",
-                            LocalidadId = 0
+                            LocalidadId = 1
                         },
                         new
                         {
                             Id = 2,
                             Address = "Avenida Siempre Viva 456",
-                            Created_at = new DateTimeOffset(new DateTime(2026, 9, 1, 18, 43, 32, 736, DateTimeKind.Unspecified).AddTicks(5005), new TimeSpan(0, -3, 0, 0, 0)),
+                            Created_at = new DateTimeOffset(new DateTime(2026, 9, 10, 12, 57, 14, 372, DateTimeKind.Unspecified).AddTicks(871), new TimeSpan(0, -3, 0, 0, 0)),
                             Dni = "87654321",
                             Firstname = "Maria",
                             IsDeleted = false,
                             Lastname = "Gomez",
-                            LocalidadId = 0
+                            LocalidadId = 2
                         },
                         new
                         {
                             Id = 3,
                             Address = "Callejón del Beso 789",
-                            Created_at = new DateTimeOffset(new DateTime(2026, 9, 1, 18, 43, 32, 736, DateTimeKind.Unspecified).AddTicks(5009), new TimeSpan(0, -3, 0, 0, 0)),
+                            Created_at = new DateTimeOffset(new DateTime(2026, 9, 10, 12, 57, 14, 372, DateTimeKind.Unspecified).AddTicks(882), new TimeSpan(0, -3, 0, 0, 0)),
                             Dni = "11223344",
                             Firstname = "Pedro",
                             IsDeleted = false,
                             Lastname = "López",
-                            LocalidadId = 0
+                            LocalidadId = 3
                         });
                 });
 

@@ -42,6 +42,7 @@
             subMenuOpenRouter = new FontAwesome.Sharp.IconMenuItem();
             iconMenuItem2 = new FontAwesome.Sharp.IconMenuItem();
             salirDelSistema = new FontAwesome.Sharp.IconMenuItem();
+            ClientesApiViewSubMenu = new FontAwesome.Sharp.IconMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -73,7 +74,7 @@
             // 
             // iconMenuItem1
             // 
-            iconMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { SubMenuArticulos, SubMenuCategorias, SubMenuPrestamos, SubMenuUbicaciones, SubMenuClientes, SubMenuPerfumes, subMenuClientesSupabase, subMenuGemini, subMenuOpenRouter });
+            iconMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { SubMenuArticulos, SubMenuCategorias, SubMenuPrestamos, SubMenuUbicaciones, SubMenuClientes, SubMenuPerfumes, subMenuClientesSupabase, subMenuGemini, subMenuOpenRouter, ClientesApiViewSubMenu });
             iconMenuItem1.IconChar = FontAwesome.Sharp.IconChar.House;
             iconMenuItem1.IconColor = Color.Black;
             iconMenuItem1.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -189,6 +190,16 @@
             salirDelSistema.Text = "Salir del sistema";
             salirDelSistema.Click += salirDelSistema_Click;
             // 
+            // ClientesApiViewSubMenu
+            // 
+            ClientesApiViewSubMenu.IconChar = FontAwesome.Sharp.IconChar.None;
+            ClientesApiViewSubMenu.IconColor = Color.Black;
+            ClientesApiViewSubMenu.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ClientesApiViewSubMenu.Name = "ClientesApiViewSubMenu";
+            ClientesApiViewSubMenu.Size = new Size(296, 34);
+            ClientesApiViewSubMenu.Text = "Clientes Api View";
+            ClientesApiViewSubMenu.Click += ClientesApiViewSubMenu_Click;
+            // 
             // MenuPrincipalView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -223,5 +234,6 @@
         private FontAwesome.Sharp.IconMenuItem subMenuClientesSupabase;
         private FontAwesome.Sharp.IconMenuItem subMenuGemini;
         private FontAwesome.Sharp.IconMenuItem subMenuOpenRouter;
+        private FontAwesome.Sharp.IconMenuItem ClientesApiViewSubMenu;
     }
 }

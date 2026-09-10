@@ -17,5 +17,7 @@ namespace Services.Models
         public int LocalidadId { get; set; } = 0;
         public Localidad? Localidad { get; set; }
         public bool IsDeleted { get; set; } = false;
+
+        
     }
 }

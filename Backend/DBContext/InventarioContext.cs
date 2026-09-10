@@ -40,9 +40,9 @@ namespace Backend.DBContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Cliente>().HasData(
-                new Cliente { Id = 1, Created_at = DateTime.Now, Firstname = "Juan", Lastname = "Perez", Dni = "12345678", Address = "Calle Falsa 123" },
-                new Cliente { Id = 2, Created_at = DateTime.Now, Firstname = "Maria", Lastname = "Gomez", Dni = "87654321", Address = "Avenida Siempre Viva 456" },
-                new Cliente { Id = 3, Firstname = "Pedro", Lastname = "López", Dni = "11223344", Address = "Callejón del Beso 789" }
+                new Cliente { Id = 1, Created_at = DateTime.Now, Firstname = "Juan", Lastname = "Perez", Dni = "12345678", Address = "Calle Falsa 123", LocalidadId = 1 },
+                new Cliente { Id = 2, Created_at = DateTime.Now, Firstname = "Maria", Lastname = "Gomez", Dni = "87654321", Address = "Avenida Siempre Viva 456", LocalidadId = 2 },
+                new Cliente { Id = 3, Firstname = "Pedro", Lastname = "López", Dni = "11223344", Address = "Callejón del Beso 789", LocalidadId = 3 }
             );
 
             //cargamos datos semilla para la tabla Localidades

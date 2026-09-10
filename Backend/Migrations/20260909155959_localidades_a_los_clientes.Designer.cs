@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     [DbContext(typeof(InventarioContext))]
-    [Migration("20260901214333_agregamos_paises")]
-    partial class agregamos_paises
+    [Migration("20260909155959_localidades_a_los_clientes")]
+    partial class localidades_a_los_clientes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,7 +71,7 @@ namespace Backend.Migrations
                         {
                             Id = 1,
                             Address = "Calle Falsa 123",
-                            Created_at = new DateTimeOffset(new DateTime(2026, 9, 1, 18, 43, 32, 736, DateTimeKind.Unspecified).AddTicks(4986), new TimeSpan(0, -3, 0, 0, 0)),
+                            Created_at = new DateTimeOffset(new DateTime(2026, 9, 9, 12, 59, 58, 993, DateTimeKind.Unspecified).AddTicks(7738), new TimeSpan(0, -3, 0, 0, 0)),
                             Dni = "12345678",
                             Firstname = "Juan",
                             IsDeleted = false,
@@ -82,7 +82,7 @@ namespace Backend.Migrations
                         {
                             Id = 2,
                             Address = "Avenida Siempre Viva 456",
-                            Created_at = new DateTimeOffset(new DateTime(2026, 9, 1, 18, 43, 32, 736, DateTimeKind.Unspecified).AddTicks(5005), new TimeSpan(0, -3, 0, 0, 0)),
+                            Created_at = new DateTimeOffset(new DateTime(2026, 9, 9, 12, 59, 58, 993, DateTimeKind.Unspecified).AddTicks(7751), new TimeSpan(0, -3, 0, 0, 0)),
                             Dni = "87654321",
                             Firstname = "Maria",
                             IsDeleted = false,
@@ -93,7 +93,7 @@ namespace Backend.Migrations
                         {
                             Id = 3,
                             Address = "Callejón del Beso 789",
-                            Created_at = new DateTimeOffset(new DateTime(2026, 9, 1, 18, 43, 32, 736, DateTimeKind.Unspecified).AddTicks(5009), new TimeSpan(0, -3, 0, 0, 0)),
+                            Created_at = new DateTimeOffset(new DateTime(2026, 9, 9, 12, 59, 58, 993, DateTimeKind.Unspecified).AddTicks(7753), new TimeSpan(0, -3, 0, 0, 0)),
                             Dni = "11223344",
                             Firstname = "Pedro",
                             IsDeleted = false,

@@ -62,5 +62,11 @@ namespace Desktop.Views
             OpenrouterView openRouter = new();
             openRouter.ShowDialog();
         }
+
+        private void ClientesApiViewSubMenu_Click(object sender, EventArgs e)
+        {
+            ClientesApiView clientesapiview = new();
+            clientesapiview.ShowDialog();
+        }
     }
 }
