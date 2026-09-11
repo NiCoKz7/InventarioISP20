@@ -31,6 +31,8 @@
             label1 = new Label();
             tabControl1 = new TabControl();
             tabPageLista = new TabPage();
+            btnRestaurar = new Button();
+            checkVerEliminados = new CheckBox();
             btnEliminar = new FontAwesome.Sharp.IconButton();
             btnModificar = new FontAwesome.Sharp.IconButton();
             btnNuevo = new FontAwesome.Sharp.IconButton();
@@ -77,6 +79,8 @@
             // 
             // tabPageLista
             // 
+            tabPageLista.Controls.Add(btnRestaurar);
+            tabPageLista.Controls.Add(checkVerEliminados);
             tabPageLista.Controls.Add(btnEliminar);
             tabPageLista.Controls.Add(btnModificar);
             tabPageLista.Controls.Add(btnNuevo);
@@ -91,6 +95,28 @@
             tabPageLista.TabIndex = 0;
             tabPageLista.Text = "Lista";
             tabPageLista.UseVisualStyleBackColor = true;
+            // 
+            // btnRestaurar
+            // 
+            btnRestaurar.Enabled = false;
+            btnRestaurar.Location = new Point(600, 315);
+            btnRestaurar.Name = "btnRestaurar";
+            btnRestaurar.Size = new Size(112, 34);
+            btnRestaurar.TabIndex = 8;
+            btnRestaurar.Text = "Restaurar";
+            btnRestaurar.UseVisualStyleBackColor = true;
+            btnRestaurar.Click += btnRestaurar_Click;
+            // 
+            // checkVerEliminados
+            // 
+            checkVerEliminados.AutoSize = true;
+            checkVerEliminados.Location = new Point(600, 280);
+            checkVerEliminados.Name = "checkVerEliminados";
+            checkVerEliminados.Size = new Size(154, 29);
+            checkVerEliminados.TabIndex = 7;
+            checkVerEliminados.Text = "Ver eliminados";
+            checkVerEliminados.UseVisualStyleBackColor = true;
+            checkVerEliminados.CheckedChanged += checkVerEliminados_CheckedChanged;
             // 
             // btnEliminar
             // 
@@ -329,5 +355,7 @@
         private FontAwesome.Sharp.IconButton btnNuevo;
         private FontAwesome.Sharp.IconButton btnModificar;
         private FontAwesome.Sharp.IconButton btnEliminar;
+        private CheckBox checkVerEliminados;
+        private Button btnRestaurar;
     }
 }

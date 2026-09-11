@@ -20,10 +20,10 @@ namespace Desktop.Views
         {
             InitializeComponent();
             //clientesService 
-            LoadClientes();
+            _ = LoadClientes();
         }
 
-        private async void LoadClientes()
+        private async Task LoadClientes()
         {
             var clientes = await clientesService.GetAllAsync();
             if (clientes != null)
@@ -129,7 +129,7 @@ namespace Desktop.Views
                 var clienteAEliminar = (Cliente)dataGridViewClientes.CurrentRow.DataBoundItem;
                 //preguntamos si esta seguro de eliminar el cliente
                 var result = MessageBox.Show($"¿Está seguro de eliminar al cliente {clienteAEliminar.Firstname} {clienteAEliminar.Lastname}?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                
+
                 if (result == DialogResult.Yes)
                 {
                     //eliminamos al cliente
@@ -148,6 +148,63 @@ namespace Desktop.Views
             else
             {
                 MessageBox.Show("Seleccione un cliente para eliminar");
+            }
+        }
+
+        private async void checkVerEliminados_CheckedChanged(object sender, EventArgs e)
+        {
+            txtBusqueda.Enabled = !checkVerEliminados.Checked;
+            btnBuscar.Enabled = !checkVerEliminados.Checked;
+            btnModificar.Enabled = !checkVerEliminados.Checked;
+            btnEliminar.Enabled = !checkVerEliminados.Checked;
+            btnNuevo.Enabled = !checkVerEliminados.Checked;
+            btnRestaurar.Enabled = checkVerEliminados.Checked;
+            if (checkVerEliminados.Checked)
+            {
+                await LoadDeleted();
+            }
+            else
+            {
+                await LoadClientes();
+            }
+        }
+
+        private async Task LoadDeleted()
+        {
+            var clientes = await clientesService.GetAllDeletedAsync();
+            if (clientes != null)
+            {
+                dataGridViewClientes.DataSource = clientes;
+            }
+        }
+
+        private async void btnRestaurar_Click(object sender, EventArgs e)
+        {
+            //capturamos el cliente seleccionado en el datagridview
+            if (dataGridViewClientes.CurrentRow != null)
+            {
+                var clienteARestaurar = (Cliente)dataGridViewClientes.CurrentRow.DataBoundItem;
+                //preguntamos si esta seguro de restaurar el cliente
+                var result = MessageBox.Show($"¿Está seguro de restaurar al cliente {clienteARestaurar.Firstname} {clienteARestaurar.Lastname}?", "Confirmar restauración", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    //restauramos al cliente
+                    var clienteRestaurado = await clientesService.RestoreClienteAsync((int)clienteARestaurar.Id!);
+                    if (clienteRestaurado)
+                    {
+                        MessageBox.Show($"cliente {clienteARestaurar.Firstname} {clienteARestaurar.Lastname} restaurado correctamente");
+                        await LoadDeleted();
+                    }
+                    else
+                    {
+                        MessageBox.Show("error al restaurar el cliente");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un cliente para restaurar");
             }
         }
     }

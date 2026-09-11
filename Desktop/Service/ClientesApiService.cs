@@ -47,28 +47,49 @@ namespace Desktop.Service
 
         public async Task<List<Cliente>?> GetAllWithFiltersAsync(string filter)//obteniendo clientes mediante filtro
         {
-            //try
-            //{
-            //    string filtroSupabase = $"?or=(firstname.ilike.*{filter}*,lastname.ilike.*{filter}*,dni.ilike.*{filter}*,address.ilike.*{filter}*)"; //filtro para buscar por nombre o apellido que contenga lo que se pasa por el parametro filter
-            //    var response = await httpClient.GetAsync(filtroSupabase);
-            //    if (response.IsSuccessStatusCode)
-            //    {
-            //        var json = await response.Content.ReadAsStringAsync();
-            //        var clientes = System.Text.Json.JsonSerializer.Deserialize<List<Cliente>>(json);
-            //        return clientes;
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Error al obtener los clientes: " + response.ReasonPhrase);
-            //        return null;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Error al obtener los clientes: " + ex.Message);
-            //    return null;
-            //}
-            return null;
+            try
+            {
+                var response = await httpClient.GetAsync($"?filtro={filter}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    var clientes = JsonSerializer.Deserialize<List<Cliente>>(json, options);
+                    return clientes;
+                }
+                else
+                {
+                    MessageBox.Show("Error al obtener los clientes: " + response.ReasonPhrase);
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al obtener los clientes: " + ex.Message);
+                return null;
+            }
+        }
+        public async Task<List<Cliente>?> GetAllDeletedAsync()//obteniendo clientes
+        {
+            try
+            {
+                var response = await httpClient.GetAsync("deleteds");
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    var clientes = JsonSerializer.Deserialize<List<Cliente>>(json, options);
+                    return clientes;
+                }
+                else
+                {
+                    MessageBox.Show("Error al obtener los clientes: " + response.ReasonPhrase);
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al obtener los clientes: " + ex.Message);
+                return null;
+            }
         }
 
         public async Task<bool> AddClienteAsync(Cliente cliente)//agregando un cliente
@@ -149,6 +170,28 @@ namespace Desktop.Service
             //}
             return false;
         }
+        //restaurar un cliente
+        public async Task<bool> RestoreClienteAsync(int id) //eliminando un cliente
+        {
+            try
+            {
+                var response = await httpClient.PutAsync($"restore/{id}", null);
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Error al restaurar el cliente: " + response.ReasonPhrase);
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al restaurar el cliente desde la Api: " + ex.Message);
+                return false;
+            }
+        }
 
         private HttpClient? SettingHttpClient()
         {
@@ -156,7 +199,7 @@ namespace Desktop.Service
             //var urlApi = Environment.GetEnvironmentVariable("URLAPI");
             var urlApi = Environment.GetEnvironmentVariable("URLAPILOCAL");
             var httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(urlApi+"Clientes");
+            httpClient.BaseAddress = new Uri(urlApi+"Clientes/");
             httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
             return httpClient;
         }

@@ -37,6 +37,19 @@ namespace Backend.Controllers
             .ToListAsync();
         }
 
+        //obtener los clientes eliminados
+        [HttpGet ("Deleteds")]
+        public async Task<ActionResult<IEnumerable<Cliente>>> GetDeleted()
+        {
+            return await _context.Clientes
+            .IgnoreQueryFilters()
+            .Include(c => c.Localidad)
+            .ThenInclude(l => l.Provincia)
+            .ThenInclude(p => p.Pais)
+            .Where(c => c.IsDeleted)
+            .ToListAsync();
+        }
+
         // GET: api/Clientes
         //devolvemos el total de clientes que no estan eliminados 
         [HttpGet ("Total")]
@@ -121,6 +134,23 @@ namespace Backend.Controllers
             return NoContent();
         }
 
+        //restauramos un cliente eliminado
+        [HttpPut("restore/{id}")]
+        public async Task<IActionResult> RestoreCliente(int id)
+        {
+            var cliente = await _context.Clientes
+                .IgnoreQueryFilters()
+                .FirstOrDefaultAsync(c => c.Id == id);
+            if (cliente == null)
+            {
+                return NotFound();
+            }
+            cliente.IsDeleted = false;
+            _context.Entry(cliente).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
         private bool ClienteExists(int id)
         {
             return _context.Clientes.Any(e => e.Id == id);
