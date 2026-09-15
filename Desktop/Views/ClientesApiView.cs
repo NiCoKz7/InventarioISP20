@@ -124,30 +124,28 @@ namespace Desktop.Views
         private async void btnEliminar_Click(object sender, EventArgs e)
         {
             //capturamos el cliente seleccionado en el datagridview
-            if (dataGridViewClientes.CurrentRow != null)
-            {
-                var clienteAEliminar = (Cliente)dataGridViewClientes.CurrentRow.DataBoundItem;
-                //preguntamos si esta seguro de eliminar el cliente
-                var result = MessageBox.Show($"¿Está seguro de eliminar al cliente {clienteAEliminar.Firstname} {clienteAEliminar.Lastname}?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
-                {
-                    //eliminamos al cliente
-                    var clienteEliminado = await clientesService.DeleteClienteAsync((int)clienteAEliminar.Id!);
-                    if (clienteEliminado)
-                    {
-                        MessageBox.Show($"cliente {clienteAEliminar.Firstname} {clienteAEliminar.Lastname} eliminado correctamente");
-                        LoadClientes();
-                    }
-                    else
-                    {
-                        MessageBox.Show("error al eliminar el cliente");
-                    }
-                }
-            }
-            else
+            if (dataGridViewClientes.CurrentRow == null)
             {
                 MessageBox.Show("Seleccione un cliente para eliminar");
+                return;
+            }
+            var clienteAEliminar = (Cliente)dataGridViewClientes.CurrentRow.DataBoundItem;
+            //preguntamos si esta seguro de eliminar el cliente
+            var result = MessageBox.Show($"¿Está seguro de eliminar al cliente {clienteAEliminar.Firstname} {clienteAEliminar.Lastname}?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                //eliminamos al cliente
+                var clienteEliminado = await clientesService.DeleteClienteAsync((int)clienteAEliminar.Id!);
+                if (!clienteEliminado)
+                {
+                    MessageBox.Show("error al eliminar el cliente");
+                    return;
+                }
+
+                MessageBox.Show($"cliente {clienteAEliminar.Firstname} {clienteAEliminar.Lastname} eliminado correctamente");
+                await LoadClientes();
+
             }
         }
 

@@ -149,26 +149,25 @@ namespace Desktop.Service
 
         public async Task<bool> DeleteClienteAsync(int id) //eliminando un cliente
         {
-            //try
-            //{
-            //    string urlSupabase = $"?id=eq.{id}"; //filtro para eliminar solo el cliente con el id que se pasa por el parametro id
-            //    var response = await httpClient.DeleteAsync(urlSupabase);
-            //    if (response.IsSuccessStatusCode)
-            //    {
-            //        return true;
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Error al eliminar el cliente: " + response.ReasonPhrase);
-            //        return false;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Error al eliminar el cliente desde la Api: " + ex.Message);
-            //    return false;
-            //}
-            return false;
+            try
+            {
+                var response = await httpClient.DeleteAsync(id.ToString());
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Error al eliminar el cliente: " + response.ReasonPhrase);
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar el cliente desde la Api: " + ex.Message);
+                return false;
+            }
+
         }
         //restaurar un cliente
         public async Task<bool> RestoreClienteAsync(int id) //eliminando un cliente
