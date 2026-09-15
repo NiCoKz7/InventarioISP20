@@ -31,9 +31,11 @@ namespace Backend.Controllers
             .ThenInclude(l => l.Provincia)
             .ThenInclude(p => p.Pais)
             .Where(c => c.Firstname.ToUpper().Contains(filtro) ||
-            c.Lastname.ToUpper().Contains(filtro) ||
-            c.Address.ToUpper().Contains(filtro) ||
-            c.Dni.Contains(filtro))
+                c.Lastname.ToUpper().Contains(filtro) ||
+                c.Address.ToUpper().Contains(filtro) ||
+                c.Dni.Contains(filtro))
+            .OrderBy(c => c.Lastname)
+            .ThenBy(c => c.Firstname)
             .ToListAsync();
         }
 
