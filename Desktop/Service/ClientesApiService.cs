@@ -94,56 +94,54 @@ namespace Desktop.Service
 
         public async Task<bool> AddClienteAsync(Cliente cliente)//agregando un cliente
         {
-            //try
-            //{
-            //    SettingJsonSerializer();
-            //    var json = JsonSerializer.Serialize(cliente, options);
-            //    var content = new StringContent(json, Encoding.UTF8, "application/json");
-            //    var response = await httpClient.PostAsync("", content);
-            //    if (response.IsSuccessStatusCode)
-            //    {
-            //        return true;
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Error al crear el cliente: " + response.ReasonPhrase);
-            //        return false;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Error al crear el cliente desde la Api: " + ex.Message);
-            //    return false;
-            //}
-            return false;
+            try
+            {
+                SettingJsonSerializer();
+                var json = JsonSerializer.Serialize(cliente, options);
+                var ClienteJson = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await httpClient.PostAsync("", ClienteJson);
+                if (!response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("Error al crear el cliente: " + response.ReasonPhrase);
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al crear el cliente desde la Api: " + ex.Message);
+                return false;
+            }
         }
 
         public async Task<bool> UpdateClienteAsync(Cliente cliente) //modificando un cliente
         {
-            //try
-            //{
-            //    //configuramos la serializacion del cliente para que ignore las propiedades nulas y no tenga en cuenta mayusculas o minusculas en los nombres de las propiedades
-            //    SettingJsonSerializer();
-            //    var json = JsonSerializer.Serialize(cliente, options);
-            //    var content = new StringContent(json, Encoding.UTF8, "application/json");
-            //    string urlSupabase = $"?id=eq.{cliente.Id}"; //filtro para actualizar solo el cliente con el id que se pasa por el parametro cliente
-            //    var response = await httpClient.PutAsync(urlSupabase, content);
-            //    if (response.IsSuccessStatusCode)
-            //    {
-            //        return true;
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Error al actualizar el cliente: " + response.ReasonPhrase);
-            //        return false;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Error al actualizar el cliente desde la Api: " + ex.Message);
-            //    return false;
-            //}
-            return false;
+            try
+            {
+                // Configuramos las opciones de serialización para ignorar propiedades nulas y hacer que la búsqueda de propiedades sea insensible a mayúsculas
+                var options = new JsonSerializerOptions
+                {
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                    PropertyNameCaseInsensitive = true,
+                };
+                //configuramos la serializacion del cliente para que ignore las propiedades nulas y no tenga en cuenta mayusculas o minusculas en los nombres de las propiedades
+                SettingJsonSerializer();
+                var json = JsonSerializer.Serialize(cliente, options);
+                var ClienteJson = new StringContent(json, Encoding.UTF8, "application/json");
+                string IdCliente = cliente.Id.ToString(); //filtro para actualizar solo el cliente con el id que se pasa por el parametro cliente
+                var response = await httpClient.PutAsync(IdCliente, ClienteJson);
+                if (!response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("Error al actualizar el cliente: " + response.ReasonPhrase);
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar el cliente desde la Api: " + ex.Message);
+                return false;
+            }
 
         }
 

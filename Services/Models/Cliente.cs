@@ -9,7 +9,7 @@ namespace Services.Models
     public class Cliente
     {
         public int Id { get; set; } = 0;
-        public DateTimeOffset? Created_at { get; set; } = DateTimeOffset.Now;
+        public DateTimeOffset? Created_at { get; set; } = DateTimeOffset.UtcNow;
         public string Firstname { get; set; } = string.Empty;
         public string Lastname { get; set; } = string.Empty;
         public string Dni { get; set; } = string.Empty;

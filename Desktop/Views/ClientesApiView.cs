@@ -15,7 +15,7 @@ namespace Desktop.Views
     public partial class ClientesApiView : Form
     {
         ClientesApiService clientesService = new ClientesApiService();
-        Cliente clienteModificado;
+        Cliente? clienteModificado;
         public ClientesApiView()
         {
             InitializeComponent();
@@ -48,7 +48,8 @@ namespace Desktop.Views
                 Firstname = txtNombre.Text,
                 Lastname = txtApellido.Text,
                 Dni = txtDni.Text,
-                Address = txtDireccion.Text
+                Address = txtDireccion.Text,
+                LocalidadId = 1 // Asignar un valor predeterminado para LocalidadId
             };
             bool clienteGuardado;
             if (clienteModificado == null)
@@ -57,18 +58,20 @@ namespace Desktop.Views
             {
                 cliente.Id = clienteModificado.Id;
                 cliente.Created_at = clienteModificado.Created_at;
+                cliente.LocalidadId = clienteModificado.LocalidadId;
                 clienteGuardado = await clientesService.UpdateClienteAsync(cliente);
             }
-            if (clienteGuardado)
+            if (!clienteGuardado)
             {
-                MessageBox.Show("cliente guardado correctamente");
-                LoadClientes();
-                ClearTextBox();
-                tabControl1.SelectedTab = tabPageLista;
-                clienteModificado = null;
-            }
-            else
                 MessageBox.Show("error al guardar el cliente");
+                return;
+            }
+            MessageBox.Show("cliente guardado correctamente");
+            await LoadClientes();
+            ClearTextBox();
+            tabControl1.SelectedTab = tabPageLista;
+            clienteModificado = null;
+            
         }
 
         private void ClearTextBox()
@@ -94,21 +97,19 @@ namespace Desktop.Views
         private void btnModificar_Click(object sender, EventArgs e)
         {
             //capturamos el cliente seleccionado en el datagridview
-            if (dataGridViewClientes.CurrentRow != null)
-            {
-                clienteModificado = (Cliente)dataGridViewClientes.CurrentRow.DataBoundItem;
-                //llenamos los campos del formulario con los datos del cliente seleccionado
-                txtNombre.Text = clienteModificado.Firstname;
-                txtApellido.Text = clienteModificado.Lastname;
-                txtDni.Text = clienteModificado.Dni;
-                txtDireccion.Text = clienteModificado.Address;
-                //cambiamos a la pestaña de agregar/editar
-                tabControl1.SelectedTab = tabPageAgregarEditar;
-            }
-            else
+            if (dataGridViewClientes.CurrentRow == null)
             {
                 MessageBox.Show("Seleccione un cliente para modificar");
+                return;
             }
+            clienteModificado = (Cliente)dataGridViewClientes.CurrentRow.DataBoundItem;
+            //llenamos los campos del formulario con los datos del cliente seleccionado
+            txtNombre.Text = clienteModificado.Firstname;
+            txtApellido.Text = clienteModificado.Lastname;
+            txtDni.Text = clienteModificado.Dni;
+            txtDireccion.Text = clienteModificado.Address;
+            //cambiamos a la pestaña de agregar/editar
+            tabControl1.SelectedTab = tabPageAgregarEditar;
         }
 
         private void txtBusqueda_KeyPress(object sender, KeyPressEventArgs e)
