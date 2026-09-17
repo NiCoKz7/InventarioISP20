@@ -51,6 +51,8 @@
             label4 = new Label();
             label3 = new Label();
             txtApellido = new TextBox();
+            cboxLocalidades = new ComboBox();
+            label7 = new Label();
             tabControl1.SuspendLayout();
             tabPageLista.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewClientes).BeginInit();
@@ -196,11 +198,14 @@
             dataGridViewClientes.Name = "dataGridViewClientes";
             dataGridViewClientes.ReadOnly = true;
             dataGridViewClientes.RowHeadersWidth = 62;
+            dataGridViewClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewClientes.Size = new Size(556, 293);
             dataGridViewClientes.TabIndex = 0;
             // 
             // tabPageAgregarEditar
             // 
+            tabPageAgregarEditar.Controls.Add(label7);
+            tabPageAgregarEditar.Controls.Add(cboxLocalidades);
             tabPageAgregarEditar.Controls.Add(txtNombre);
             tabPageAgregarEditar.Controls.Add(txtDireccion);
             tabPageAgregarEditar.Controls.Add(txtDni);
@@ -221,21 +226,21 @@
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(182, 60);
+            txtNombre.Location = new Point(186, 24);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(325, 31);
             txtNombre.TabIndex = 12;
             // 
             // txtDireccion
             // 
-            txtDireccion.Location = new Point(182, 270);
+            txtDireccion.Location = new Point(186, 234);
             txtDireccion.Name = "txtDireccion";
             txtDireccion.Size = new Size(325, 31);
             txtDireccion.TabIndex = 11;
             // 
             // txtDni
             // 
-            txtDni.Location = new Point(182, 210);
+            txtDni.Location = new Point(186, 174);
             txtDni.Name = "txtDni";
             txtDni.Size = new Size(325, 31);
             txtDni.TabIndex = 10;
@@ -269,7 +274,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(38, 273);
+            label6.Location = new Point(42, 237);
             label6.Name = "label6";
             label6.Size = new Size(85, 25);
             label6.TabIndex = 7;
@@ -278,7 +283,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(38, 210);
+            label5.Location = new Point(42, 174);
             label5.Name = "label5";
             label5.Size = new Size(43, 25);
             label5.TabIndex = 6;
@@ -287,7 +292,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(38, 138);
+            label4.Location = new Point(42, 102);
             label4.Name = "label4";
             label4.Size = new Size(78, 25);
             label4.TabIndex = 5;
@@ -296,7 +301,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(38, 66);
+            label3.Location = new Point(42, 30);
             label3.Name = "label3";
             label3.Size = new Size(78, 25);
             label3.TabIndex = 4;
@@ -304,10 +309,27 @@
             // 
             // txtApellido
             // 
-            txtApellido.Location = new Point(182, 132);
+            txtApellido.Location = new Point(186, 96);
             txtApellido.Name = "txtApellido";
             txtApellido.Size = new Size(325, 31);
             txtApellido.TabIndex = 1;
+            // 
+            // cboxLocalidades
+            // 
+            cboxLocalidades.FormattingEnabled = true;
+            cboxLocalidades.Location = new Point(186, 295);
+            cboxLocalidades.Name = "cboxLocalidades";
+            cboxLocalidades.Size = new Size(325, 33);
+            cboxLocalidades.TabIndex = 13;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(42, 295);
+            label7.Name = "label7";
+            label7.Size = new Size(87, 25);
+            label7.TabIndex = 14;
+            label7.Text = "Localidad";
             // 
             // ClientesApiView
             // 
@@ -357,5 +379,7 @@
         private FontAwesome.Sharp.IconButton btnEliminar;
         private CheckBox checkVerEliminados;
         private Button btnRestaurar;
+        private Label label7;
+        private ComboBox cboxLocalidades;
     }
 }

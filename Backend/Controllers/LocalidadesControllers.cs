@@ -85,6 +85,17 @@ namespace Backend.Controllers
             return NoContent();
         }
 
+        [HttpGet("Deleteds")]
+        public async Task<ActionResult<IEnumerable<Localidad>>> GetDeleted()
+        {
+            return await _context.Localidades
+            .IgnoreQueryFilters()
+            .Include(l => l.Provincia)
+            .ThenInclude(p => p.Pais)
+            .Where(c => c.IsDeleted)
+            .ToListAsync();
+        }
+
         // POST: api/Localidades
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -106,6 +117,23 @@ namespace Backend.Controllers
                 return NotFound();
             }
             localidad.IsDeleted = true;
+            _context.Entry(localidad).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpPut("restore/{id}")]
+        public async Task<IActionResult> RestoreLocalidad(int id)
+        {
+            var localidad = await _context.Localidades
+                .IgnoreQueryFilters()
+                .FirstOrDefaultAsync(c => c.Id == id);
+            if (localidad == null)
+            {
+                return NotFound();
+            }
+            localidad.IsDeleted = false;
             _context.Entry(localidad).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 

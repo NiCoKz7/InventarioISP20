@@ -15,12 +15,26 @@ namespace Desktop.Views
     public partial class ClientesApiView : Form
     {
         ClientesApiService clientesService = new ClientesApiService();
+        LocalidadesApiService localidadesService = new LocalidadesApiService();
         Cliente? clienteModificado;
         public ClientesApiView()
         {
             InitializeComponent();
             //clientesService 
             _ = LoadClientes();
+            _ = LoadComboLocalidades();
+        }
+
+        private async Task LoadComboLocalidades()
+        {
+            var localidades = await localidadesService.GetAllAsync();
+            if (localidades != null)
+            {
+                cboxLocalidades.DataSource = localidades;
+                cboxLocalidades.DisplayMember = "Name";
+                cboxLocalidades.ValueMember = "Id";
+                cboxLocalidades.SelectedValue = -1; // No seleccionar ningún elemento por defecto
+            }
         }
 
         private async Task LoadClientes()
@@ -29,6 +43,12 @@ namespace Desktop.Views
             if (clientes != null)
             {
                 dataGridViewClientes.DataSource = clientes;
+                //ocultamos las columnas que no queremos mostrar
+                dataGridViewClientes.Columns["Id"].Visible = false;
+                dataGridViewClientes.Columns["Created_at"].Visible = false;
+                //dataGridViewClientes.Columns["LocalidadId"].Visible = false;
+                //dataGridViewClientes.Columns["IsDeleted"].Visible = false;
+
             }
         }
 
@@ -49,7 +69,7 @@ namespace Desktop.Views
                 Lastname = txtApellido.Text,
                 Dni = txtDni.Text,
                 Address = txtDireccion.Text,
-                LocalidadId = 1 // Asignar un valor predeterminado para LocalidadId
+                LocalidadId = cboxLocalidades.SelectedValue != null ? (int)cboxLocalidades.SelectedValue : 0 // Asignar un valor predeterminado para LocalidadId
             };
             bool clienteGuardado;
             if (clienteModificado == null)
@@ -58,7 +78,6 @@ namespace Desktop.Views
             {
                 cliente.Id = clienteModificado.Id;
                 cliente.Created_at = clienteModificado.Created_at;
-                cliente.LocalidadId = clienteModificado.LocalidadId;
                 clienteGuardado = await clientesService.UpdateClienteAsync(cliente);
             }
             if (!clienteGuardado)
@@ -108,6 +127,8 @@ namespace Desktop.Views
             txtApellido.Text = clienteModificado.Lastname;
             txtDni.Text = clienteModificado.Dni;
             txtDireccion.Text = clienteModificado.Address;
+            if(clienteModificado.LocalidadId != 0)
+                cboxLocalidades.SelectedValue = clienteModificado.LocalidadId;
             //cambiamos a la pestaña de agregar/editar
             tabControl1.SelectedTab = tabPageAgregarEditar;
         }
