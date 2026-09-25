@@ -68,5 +68,23 @@ namespace Desktop.Views
             ClientesApiView clientesapiview = new();
             clientesapiview.ShowDialog();
         }
+
+        private void iconMenuItem3_Click(object sender, EventArgs e)
+        {
+            LocalidadesApiView localidadesApiView = new();
+            localidadesApiView.ShowDialog();
+        }
+
+        private void ProvinciasApiView_Click(object sender, EventArgs e)
+        {
+            ProvinciasApiView provinciasApiView = new();
+            provinciasApiView.ShowDialog();
+        }
+
+        private void PaisesApiViewSub_menu_Click(object sender, EventArgs e)
+        {
+            PaisesApiView paisesApiView = new();
+            paisesApiView.ShowDialog();
+        }
     }
 }

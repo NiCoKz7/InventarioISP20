@@ -25,10 +25,22 @@ namespace Backend.Controllers
 
         // GET: api/Provincias
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Provincia>>> GetProvincias()
+        public async Task<ActionResult<IEnumerable<Provincia>>> GetProvincias([FromQuery] string filtro = "")
         {
-            return await _context.Provincias.Include(p => p.Pais).ToListAsync();
+            filtro = filtro.ToUpper();
+            return await _context.Provincias
+            .Include(l => l.Pais)
+            .Where(c => c.Name.ToUpper().Contains(filtro))
+            //.OrderBy(c => c.Name)
+            .ToListAsync();
         }
+
+        // GET: api/Provincias
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Provincia>>> GetProvincias()
+        //{
+        //    return await _context.Provincias.Include(p => p.Pais).ToListAsync();
+        //}
 
         // GET: api/Provincias/5
         [HttpGet("{id}")]
@@ -80,6 +92,16 @@ namespace Backend.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpGet("Deleteds")]
+        public async Task<ActionResult<IEnumerable<Provincia>>> GetDeleted()
+        {
+            return await _context.Provincias
+            .IgnoreQueryFilters()
+            .Include(p => p.Pais)
+            .Where(c => c.IsDeleted)
+            .ToListAsync();
         }
 
         private bool ProvinciaExists(int id)

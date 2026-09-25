@@ -26,6 +26,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\PaisesApiView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\ProvinciasApiView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\LocalidadesApiView.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Views\ClientesSupabaseView.cs">
       <SubType>Form</SubType>
     </Compile>

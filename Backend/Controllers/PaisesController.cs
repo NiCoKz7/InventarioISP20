@@ -23,10 +23,21 @@ namespace Backend.Controllers
 
         // GET: api/Paises
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Pais>>> GetPaises()
+        public async Task<ActionResult<IEnumerable<Pais>>> GetPaises([FromQuery] string filtro = "")
         {
-            return await _context.Paises.ToListAsync();
+            filtro = filtro.ToUpper();
+            return await _context.Paises
+            .Where(p => p.Name.ToUpper().Contains(filtro))
+            //.OrderBy(c => c.Name)
+            .ToListAsync();
         }
+
+        // GET: api/Paises
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Pais>>> GetPaises()
+        //{
+        //    return await _context.Paises.ToListAsync();
+        //}
 
         // GET: api/Paises/5
         [HttpGet("{id}")]
@@ -76,6 +87,15 @@ namespace Backend.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpGet("Deleteds")]
+        public async Task<ActionResult<IEnumerable<Pais>>> GetDeleted()
+        {
+            return await _context.Paises
+                .IgnoreQueryFilters()
+                .Where(p => p.IsDeleted)
+                .ToListAsync();
         }
 
         private bool PaisExists(int id)

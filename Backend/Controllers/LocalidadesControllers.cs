@@ -24,13 +24,26 @@ namespace Backend.Controllers
 
         // GET: api/Localidades
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Localidad>>> GetLocalidades()
+        public async Task<ActionResult<IEnumerable<Localidad>>> GetLocalidades([FromQuery] string filtro = "")
         {
+            filtro = filtro.ToUpper();
             return await _context.Localidades
             .Include(l => l.Provincia)
             .ThenInclude(p => p.Pais)
+            .Where(c => c.Name.ToUpper().Contains(filtro))
+            .OrderBy(c => c.Name)
             .ToListAsync();
         }
+
+        // GET: api/Localidades
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Localidad>>> GetLocalidades()
+        //{
+        //    return await _context.Localidades
+        //    .Include(l => l.Provincia)
+        //    .ThenInclude(p => p.Pais)
+        //    .ToListAsync();
+        //}
 
         // GET: api/Localidades/5
         [HttpGet("{id}")]
