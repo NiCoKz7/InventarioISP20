@@ -11,27 +11,27 @@
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>2.83486cm</Height>
+              <Height>1.70597cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
                     <Rectangle Name="Rectangle1">
                       <ReportItems>
-                        <Textbox Name="lastname">
+                        <Textbox Name="Lastname">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!lastname.Value</Value>
+                                  <Value>=Fields!Lastname.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>lastname</rd:DefaultName>
+                          <rd:DefaultName>Lastname</rd:DefaultName>
                           <Height>0.6cm</Height>
                           <Width>2.5cm</Width>
                           <Style>
@@ -44,21 +44,21 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <Textbox Name="firstname">
+                        <Textbox Name="Firstname">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!firstname.Value</Value>
+                                  <Value>=Fields!Firstname.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>firstname</rd:DefaultName>
+                          <rd:DefaultName>Firstname</rd:DefaultName>
                           <Left>2.67639cm</Left>
                           <Height>0.6cm</Height>
                           <Width>2.5cm</Width>
@@ -73,21 +73,21 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <Textbox Name="dni">
+                        <Textbox Name="Dni">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!dni.Value</Value>
+                                  <Value>=Fields!Dni.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>dni</rd:DefaultName>
+                          <rd:DefaultName>Dni</rd:DefaultName>
                           <Left>5.35278cm</Left>
                           <Height>0.6cm</Height>
                           <Width>2.5cm</Width>
@@ -102,21 +102,21 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <Textbox Name="address">
+                        <Textbox Name="Address">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!address.Value</Value>
+                                  <Value>=Fields!Address.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>address</rd:DefaultName>
+                          <rd:DefaultName>Address</rd:DefaultName>
                           <Left>8.02917cm</Left>
                           <Height>0.6cm</Height>
                           <Width>2.5cm</Width>
@@ -160,7 +160,7 @@
         <DataSetName>DSClientes</DataSetName>
         <Top>0.17639cm</Top>
         <Left>0.35278cm</Left>
-        <Height>2.83486cm</Height>
+        <Height>1.70597cm</Height>
         <Width>15.57514cm</Width>
         <Style>
           <Border>
@@ -169,7 +169,7 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>1.18553in</Height>
+    <Height>0.85914in</Height>
     <Style />
   </Body>
   <Width>6.51425in</Width>
@@ -405,20 +405,20 @@
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
-        <Field Name="firstname">
-          <DataField>firstname</DataField>
+        <Field Name="Firstname">
+          <DataField>Firstname</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="lastname">
-          <DataField>lastname</DataField>
+        <Field Name="Lastname">
+          <DataField>Lastname</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="dni">
-          <DataField>dni</DataField>
+        <Field Name="Dni">
+          <DataField>Dni</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="address">
-          <DataField>address</DataField>
+        <Field Name="Address">
+          <DataField>Address</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
