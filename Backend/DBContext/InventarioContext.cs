@@ -40,10 +40,26 @@ namespace Backend.DBContext
         //creamos el metodo onModelCreating para insertar datos semillas en la tabla Clientes
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Valores semilla DETERMINISTAS. Deben coincidir EXACTAMENTE con
+            // InventarioContextModelSnapshot.cs; si usamos DateTime.Now, EF Core 9/10
+            // detecta un "pending model change" en cada arranque porque la fecha
+            // cambia y ya no coincide con el snapshot de la ultima migracion.
+            var fechaBase = new DateTimeOffset(
+                new DateTime(2026, 9, 17, 13, 58, 26, 138, DateTimeKind.Unspecified),
+                new TimeSpan(0, -3, 0, 0, 0));
+
+            // Cliente 3 no fija Created_at en el HasData: EF lo materializaba desde
+            // HasDefaultValueSql("NOW()") en cada arranque, generando un nuevo
+            // "pending model change" siempre. Fijamos el valor exacto del snapshot:
+            // 16:58:26.1385892 UTC (el mismo instante que fechaBase, pero offset 0).
+            var fechaBaseUtc = new DateTimeOffset(
+                new DateTime(2026, 9, 17, 16, 58, 26, 138, DateTimeKind.Unspecified),
+                new TimeSpan(0, 0, 0, 0, 0));
+
             modelBuilder.Entity<Cliente>().HasData(
-                new Cliente { Id = 1, Created_at = DateTime.Now, Firstname = "Juan", Lastname = "Perez", Dni = "12345678", Address = "Calle Falsa 123", LocalidadId = 1 },
-                new Cliente { Id = 2, Created_at = DateTime.Now, Firstname = "Maria", Lastname = "Gomez", Dni = "87654321", Address = "Avenida Siempre Viva 456", LocalidadId = 2 },
-                new Cliente { Id = 3, Firstname = "Pedro", Lastname = "López", Dni = "11223344", Address = "Callejón del Beso 789", LocalidadId = 3 }
+                new Cliente { Id = 1, Created_at = fechaBase.AddTicks(5826), Firstname = "Juan", Lastname = "Perez", Dni = "12345678", Address = "Calle Falsa 123", LocalidadId = 1 },
+                new Cliente { Id = 2, Created_at = fechaBase.AddTicks(5888), Firstname = "Maria", Lastname = "Gomez", Dni = "87654321", Address = "Avenida Siempre Viva 456", LocalidadId = 2 },
+                new Cliente { Id = 3, Created_at = fechaBaseUtc.AddTicks(5892), Firstname = "Pedro", Lastname = "López", Dni = "11223344", Address = "Callejón del Beso 789", LocalidadId = 3 }
             );
 
             //cargamos datos semilla para la tabla Localidades

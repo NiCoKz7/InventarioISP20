@@ -1,4 +1,5 @@
-﻿using Firebase.Auth;
+﻿using DotNetEnv;
+using Firebase.Auth;
 using Firebase.Auth.Providers;
 using System;
 using System.Collections.Generic;
@@ -24,10 +25,11 @@ namespace Desktop.Views
 
         private void ConfiguracionFirabeseAuthClient()
         {
+            Env.Load("../../../"); //cargando las variables de entorno del archivo .env
             var configAuthClient = new FirebaseAuthConfig
             {
-                ApiKey = "AIzaSyCjQej4jL27hQXqRcHc_xLwV0CYsxcFjlk",
-                AuthDomain = "inventarioisp20nico.firebaseapp.com",
+                ApiKey = Environment.GetEnvironmentVariable("APIFIRABASE"),
+                AuthDomain = Environment.GetEnvironmentVariable("AuthDomain"),
                 Providers = new FirebaseAuthProvider[]
                 {
                     new EmailProvider()
