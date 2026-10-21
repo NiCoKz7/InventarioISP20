@@ -32,7 +32,7 @@ namespace Backend.DBContext
                     .Build();
 
                 //string cadenaConexion = configuration.GetConnectionString("mysqlRemote");
-                var cadenaConexion = configuration.GetConnectionString("postgreRemote");
+                var cadenaConexion = configuration.GetConnectionString("postgreLocal");
                 optionsBuilder.UseNpgsql(cadenaConexion);
             }
         }

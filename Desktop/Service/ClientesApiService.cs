@@ -193,7 +193,7 @@ namespace Desktop.Service
         private HttpClient? SettingHttpClient()
         {
             Env.Load("../../../"); //cargando las variables de entorno del archivo .env
-            var urlApi = Environment.GetEnvironmentVariable("URLAPI");
+            var urlApi = Environment.GetEnvironmentVariable("URLAPILOCAL");
             //var urlApi = Environment.GetEnvironmentVariable("URLAPILOCAL");
             var httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(urlApi+"Clientes/");
