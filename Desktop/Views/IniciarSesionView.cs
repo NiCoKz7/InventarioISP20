@@ -26,7 +26,7 @@ namespace Desktop.Views
         {
             var configAuthClient = new FirebaseAuthConfig
             {
-                ApiKey = "",
+                ApiKey = "AIzaSyCjQej4jL27hQXqRcHc_xLwV0CYsxcFjlk",
                 AuthDomain = "inventarioisp20nico.firebaseapp.com",
                 Providers = new FirebaseAuthProvider[]
                 {

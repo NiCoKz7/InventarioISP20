@@ -50,14 +50,13 @@
             progressBar.Location = new Point(56, 348);
             progressBar.Name = "progressBar";
             progressBar.Size = new Size(666, 34);
-            progressBar.Style = ProgressBarStyle.Marquee;
+            progressBar.Style = ProgressBarStyle.Continuous;
             progressBar.TabIndex = 1;
-            progressBar.Value = 90;
             // 
             // timer
             // 
             timer.Enabled = true;
-            timer.Interval = 2000;
+            timer.Interval = 1000;
             timer.Tick += timer_Tick;
             // 
             // SplashView
@@ -71,6 +70,7 @@
             Name = "SplashView";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "SplashView";
+            Activated += SplashView_Activated;
             ResumeLayout(false);
             PerformLayout();
         }
